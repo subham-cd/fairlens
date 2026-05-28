@@ -13,10 +13,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers with a single /api prefix
-app.include_router(analyze.router, prefix="/api")
-app.include_router(report.router, prefix="/api")
-app.include_router(history.router, prefix="/api")
+# Include routers with specific functional prefixes
+app.include_router(analyze.router, prefix="/api/analyze", tags=["Analysis"])
+app.include_router(report.router, prefix="/api/report", tags=["Reporting"])
+app.include_router(history.router, prefix="/api/history", tags=["History"])
 
 @app.get("/health")
 async def health_check():
