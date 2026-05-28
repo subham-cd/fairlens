@@ -7,8 +7,8 @@ app = FastAPI(title="FairLens API", version="1.0.0")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://fairlens-two-tan.vercel.app", "http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
