@@ -19,7 +19,7 @@ async def get_current_user(authorization: str = Header(None)):
     
     return decoded_token
 
-@router.post("")
+@router.post("/analyze")
 async def analyze_dataset(
     file: UploadFile = File(...),
     domain: str = Form(...),

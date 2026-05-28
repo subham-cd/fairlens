@@ -19,7 +19,8 @@ export const analyzeDataset = async (file, domain, sensitiveColumns, outcomeColu
   formData.append('sensitive_columns', JSON.stringify(sensitiveColumns));
   formData.append('outcome_column', outcomeColumn);
 
-  const response = await api.post('/analyze', formData, {
+  // Removing the leading slash to make it relative to the baseURL
+  const response = await api.post('analyze', formData, {
     headers: { ...headers, 'Content-Type': 'multipart/form-data' },
   });
   return response.data;
@@ -27,13 +28,13 @@ export const analyzeDataset = async (file, domain, sensitiveColumns, outcomeColu
 
 export const getReport = async (auditId, auth) => {
   const headers = await getAuthHeader(auth);
-  const response = await api.get(`/report/${auditId}`, { headers });
+  const response = await api.get(`report/${auditId}`, { headers });
   return response.data;
 };
 
 export const downloadPDF = async (auditId, auth) => {
   const headers = await getAuthHeader(auth);
-  const response = await api.get(`/report/${auditId}/pdf`, {
+  const response = await api.get(`report/${auditId}/pdf`, {
     headers,
     responseType: 'blob',
   });
@@ -42,12 +43,12 @@ export const downloadPDF = async (auditId, auth) => {
 
 export const getHistory = async (auth) => {
   const headers = await getAuthHeader(auth);
-  const response = await api.get('/history', { headers });
+  const response = await api.get('history', { headers });
   return response.data;
 };
 
 export const detectSensitive = async (columns) => {
-  const response = await api.get('/analyze/detect-sensitive', {
+  const response = await api.get('analyze/detect-sensitive', {
     params: { columns: columns.join(',') }
   });
   return response.data;
